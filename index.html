@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b11">
+  <title>Traza · Laboratorio de programación</title>
+  <meta name="description" content="Explora tus programas de Python paso a paso: código, variables, condiciones y visualizaciones para tus ayudantías.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2322252b'/%3E%3Cpath d='M17 20l13 12-13 12m19 0h12' fill='none' stroke='%23ffffff' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('traza-theme')==='light'?'light':'dark'}catch{}</script>
+  <link rel="stylesheet" href="dark.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#gallinas"><span class="brand-icon">&gt;_</span><span>traza<span class="brand-dot">.</span></span></a>
+    <div class="library-label">Ejercicios <span>4</span></div>
+    <nav id="exercise-nav" aria-label="Ejercicios"></nav>
+    <div class="sidebar-footer">Python · while <button class="icon-button" id="help" aria-label="Ver ayuda y atajos">?</button></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <div class="breadcrumbs"><button id="menu" class="icon-button mobile-only" aria-label="Abrir menú">☰</button><span>Laboratorio</span><span class="crumb-slash">/</span><strong id="breadcrumb">Prueba 2025-2</strong></div>
+      <div class="topbar-actions"><button class="quiet-button" id="theme-toggle" aria-label="Cambiar a modo claro"><span class="theme-symbol" aria-hidden="true">☀</span><span class="theme-label">Modo claro</span></button><button class="quiet-button" id="classroom" aria-pressed="false"><span aria-hidden="true">▣</span> <span>Modo ayudantía</span></button></div>
+    </header>
+    <div class="page-content">
+      <section class="exercise-heading">
+        <div><div class="eyebrow"><span class="tiny-square"></span> TRAZA PYTHON <span id="exercise-count"></span></div><h1 id="exercise-title"></h1><p id="exercise-topic"></p></div>
+        <button id="statement" class="outline-button"><span aria-hidden="true">▤</span> Ver enunciado</button>
+      </section>
+      <div id="workspace">
+        <section class="inputs-card" aria-label="Configurar entradas">
+          <div class="inputs-intro"><div class="section-kicker">ENTRADAS</div><h2>Entradas</h2></div>
+          <form id="input-form" novalidate><div id="input-fields" class="input-fields"></div><button type="submit" class="primary-button"><span aria-hidden="true">↻</span> Generar traza</button><div class="input-bottom"><label for="sample-select">Cargar ejemplo</label><select id="sample-select"></select><span id="input-hint"></span></div><p id="form-error" role="alert" hidden></p></form>
+        </section>
+        <section class="player panel" aria-label="Controles de la traza">
+          <div class="player-top"><div class="transport"><button id="restart" class="icon-button" title="Volver al inicio (Home)" aria-label="Volver al inicio">↺</button><button id="prev" class="icon-button" title="Paso anterior (←)" aria-label="Paso anterior">❮</button><button id="play" class="play-button" aria-label="Reproducir traza"><span aria-hidden="true">▶</span></button><button id="next" class="icon-button next-button" title="Paso siguiente (→)" aria-label="Paso siguiente">❯</button><button id="finish" class="icon-button" title="Ir al resultado (End)" aria-label="Ir al resultado">⇥</button></div><div class="step-counter"><strong id="step-current">00</strong><span id="step-total">/ 00 pasos</span></div><div class="speed-control"><label for="speed">Velocidad</label><select id="speed"><option value="2000">0.5×</option><option value="1100" selected>1×</option><option value="550">2×</option></select></div><button class="quiet-button table-toggle" id="show-table" aria-expanded="false">▦ <span>Tabla de traza</span></button></div>
+          <div class="progress-row"><input type="range" id="timeline" min="0" value="0" aria-label="Paso de la traza"><span id="progress-label">Listo para comenzar</span></div>
+          <div class="keyboard-hint">← → para recorrer <span>·</span> Espacio para reproducir</div>
+        </section>
+        <div class="workspace-grid">
+          <section class="code-card panel">
+            <div class="panel-heading"><div><span class="section-kicker">CÓDIGO</span><h2>Tu programa <span class="language-badge">Python</span></h2></div><a id="download-code" class="icon-button" download title="Descargar código Python" aria-label="Descargar código Python">↓</a></div>
+            <div class="code-toolbar"><span id="code-filename"></span><label class="toggle-label"><input type="checkbox" id="show-comments"> Comentarios</label></div>
+            <div class="code-scroll" id="code-scroll"><div id="source-code" aria-label="Código del programa"></div></div>
+            <div class="code-caption"><span class="active-line-dot"></span><span id="line-label">La línea activa aparecerá al avanzar</span><span class="code-trace-note">Estado después de ejecutar</span></div>
+          </section>
+          <div class="right-column">
+            <section class="visual-card panel"><div class="panel-heading"><div><span class="section-kicker">VISUALIZACIÓN</span><h2 id="visual-title">El recorrido, a la vista</h2></div><span class="small-tag" id="visual-context">Índices desde 0</span></div><div id="visualization"></div></section>
+            <section class="memory-card panel"><div class="compact-heading"><h2>Memoria <span class="small-muted">/ variables</span></h2><span class="change-label"><i></i> Cambió en este paso</span></div><div id="variables" class="variables"></div></section>
+            <section class="explanation-card" aria-live="polite" aria-atomic="true"><div class="explanation-top"><span id="step-type" class="step-type">INICIO</span><span id="condition-result"></span></div><h3 id="step-title"></h3><p id="step-detail"></p><div id="step-formula" hidden></div></section>
+          </div>
+        </div>
+        <section class="console-card panel"><div class="compact-heading"><h2><span class="terminal-symbol">&gt;_</span> Consola</h2><span class="small-muted">Entradas y salida de tu programa</span></div><pre id="console-output" tabindex="0"></pre></section>
+        <section id="trace-table-section" class="panel trace-table-section" hidden><div class="compact-heading"><h2>La traza completa</h2><button id="export-csv" class="quiet-button">↓ Descargar CSV</button></div><p class="table-help">Cada fila muestra el estado después de la línea ejecutada. Selecciona una fila para volver a ese paso.</p><div class="table-scroll"><table id="trace-table"></table></div></section>
+        <footer class="page-footer"><span>Traza</span><span>Ejercicios 1 y 2 · 2025-2 / 2026-1</span></footer>
+      </div>
+    </div>
+  </main>
+  <dialog id="info-dialog"><div class="dialog-top"><span class="eyebrow" id="dialog-eyebrow">ENUNCIADO</span><button id="close-dialog" class="icon-button" aria-label="Cerrar ventana">×</button></div><div id="dialog-content"></div></dialog>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
